@@ -1,0 +1,24 @@
+{
+  "defaultEnv": {"ENV": "NODE_ENV"},
+  "local": {
+    "driver": "mysql",
+    "host": "localhost",
+    "user": "root",
+    "password": "imapassword",
+    "database": "centcom"
+  },
+  "dev": {
+    "driver": "mysql",
+    "host": {"ENV": "CENTCOM_DB_HOST"},
+    "user": {"ENV": "CENTCOM_DB_USER"},
+    "password": {"ENV": "CENTCOM_DB_PASSWORD"},
+    "database": "centcom"
+  },
+  "cert": {
+    "driver": "mysql",
+    "host": "mysql",
+    "user": "root",
+    "password": "wowItsMeAPassword",
+    "database": "centcom"
+  }
+}
