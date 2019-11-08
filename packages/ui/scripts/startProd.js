@@ -1,7 +1,7 @@
 const express = require('express');
 const config = require('config');
 const app = express();
-const port = config.get('apiPort');
+const port = config.get('frontEndPort');
 
 app.use(express.static('dist'));
 
