@@ -4,79 +4,24 @@
   "description": "Monorepo for the CentCom SS13 Management System",
   "main": "src/index.js",
   "scripts": {
-    "globals": "npm i lerna npm-run-all -g",
-    "bootstrap": "npx lerna bootstrap",
+    "globals": "npm i lerna yarn npm-run-all -g",
+    "prepRepo": "yarn install",
+    "bootstrap": "npx lerna exec --concurrency 1 -- yarn install",
     "test": "npx lerna run test",
     "build": "npx lerna run build",
     "build:local": "npx lerna run build:local",
     "start": "npx lerna run start --parallel --stream",
-    "start:local": "npx lerna run start --parallel --stream",
-    "setup": "npx -p \"npm-run-all\" run-s globals bootstrap build",
-    "setup:local": "npx -p \"npm-run-all\" run-s globals bootstrap build:local"
-  },
-  "babel": {
-    "presets": [
-      "@babel/preset-env",
-      "@babel/preset-react"
-    ],
-    "plugins": [
-      [
-        "import",
-        {
-          "libraryName": "antd",
-          "libraryDirectory": "es",
-          "style": true
-        }
-      ],
-      "@babel/plugin-proposal-class-properties"
-    ]
+    "start:local": "npx lerna run start:local --parallel --stream",
+    "setup": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build",
+    "setup:local": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build:local"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.7.0",
-    "@babel/plugin-proposal-class-properties": "^7.7.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/polyfill": "^7.7.0",
-    "@babel/preset-env": "^7.7.0",
-    "@babel/preset-react": "^7.7.0",
-    "@babel/register": "^7.7.0",
-    "aws-sdk": "^2.456.0",
-    "babel-loader": "^8.0.6",
-    "babel-plugin-import": "^1.11.0",
-    "babel-plugin-inline-import": "^3.0.0",
-    "babel-plugin-wildcard": "^5.0.0",
-    "chai": "^4.2.0",
-    "chance": "^1.0.18",
-    "chardet": "^0.7.0",
-    "config": "^3.2.4",
-    "config-webpack": "^1.0.4",
-    "copy-webpack-plugin": "^5.0.3",
-    "css-loader": "^2.1.1",
-    "db-migrate": "^0.11.5",
-    "db-migrate-mysql": "^1.1.10",
-    "depcheck": "^0.7.2",
     "lerna": "^3.18.3",
-    "less-loader": "^4.1.0",
-    "less-vars-to-js": "^1.3.0",
-    "mime-types": "^2.1.24",
-    "mocha": "^6.1.4",
     "npm-run-all": "^4.1.5",
-    "node-sass": "^4.12.0",
-    "proxyquire": "^2.1.0",
-    "react-hot-loader": "^4.8.4",
-    "sass-loader": "^7.1.0",
     "shelljs": "^0.8.3",
-    "sinon": "^7.3.2",
-    "style-loader": "^0.23.1",
-    "uglifyjs-webpack-plugin": "^2.1.3",
-    "webpack": "^4.31.0",
-    "webpack-cli": "^3.3.2",
-    "webpack-dev-server": "^3.3.1",
-    "webpack-encoding-plugin": "^0.3.1",
-    "webpack-merge": "^4.2.1",
-    "webpack-node-externals": "^1.7.2"
+    "yarn": "^1.19.1"
   }
 }

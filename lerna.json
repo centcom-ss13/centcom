@@ -9,6 +9,9 @@
     },
     "bootstrap": {
       "npmClientArgs": ["--no-package-lock"]
+    },
+    "run": {
+      "npmClient": "yarn"
     }
   },
   "packages": ["packages/*"]
