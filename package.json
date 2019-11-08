@@ -4,15 +4,15 @@
   "description": "Monorepo for the CentCom SS13 Management System",
   "main": "src/index.js",
   "scripts": {
+    "globals": "npm i lerna npm-run-all -g",
     "bootstrap": "npx lerna bootstrap",
     "test": "npx lerna run test",
-    "start": "npx lerna run start --parallel --stream",
-    "build:local": "npx lerna run build:local",
     "build": "npx lerna run build",
-    "deploy": "npx lerna run build:local",
-    "npm:publish": "npm publish --access public",
-    "prepare": "npx -p \"npm-run-all\" run-s globals bootstrap build",
-    "globals": "npm i lerna npm-run-all -g"
+    "build:local": "npx lerna run build:local",
+    "start": "npx lerna run start --parallel --stream",
+    "start:local": "npx lerna run start --parallel --stream",
+    "setup": "npx -p \"npm-run-all\" run-s globals bootstrap build",
+    "setup:local": "npx -p \"npm-run-all\" run-s globals bootstrap build:local"
   },
   "babel": {
     "presets": [
@@ -35,21 +35,24 @@
   "license": "ISC",
   "dependencies": {},
   "devDependencies": {
-    "@babel/core": "^7.4.4",
-    "@babel/plugin-proposal-class-properties": "^7.4.4",
-    "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
-    "@babel/plugin-transform-runtime": "^7.4.4",
-    "@babel/polyfill": "^7.4.4",
-    "@babel/preset-env": "^7.4.4",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/register": "^7.4.4",
+    "@babel/core": "^7.7.0",
+    "@babel/plugin-proposal-class-properties": "^7.7.0",
+    "@babel/plugin-proposal-object-rest-spread": "^7.6.2",
+    "@babel/plugin-transform-runtime": "^7.6.2",
+    "@babel/polyfill": "^7.7.0",
+    "@babel/preset-env": "^7.7.0",
+    "@babel/preset-react": "^7.7.0",
+    "@babel/register": "^7.7.0",
     "aws-sdk": "^2.456.0",
     "babel-loader": "^8.0.6",
     "babel-plugin-import": "^1.11.0",
+    "babel-plugin-inline-import": "^3.0.0",
     "babel-plugin-wildcard": "^5.0.0",
     "chai": "^4.2.0",
     "chance": "^1.0.18",
     "chardet": "^0.7.0",
+    "config": "^3.2.4",
+    "config-webpack": "^1.0.4",
     "copy-webpack-plugin": "^5.0.3",
     "css-loader": "^2.1.1",
     "db-migrate": "^0.11.5",
@@ -73,6 +76,7 @@
     "webpack-cli": "^3.3.2",
     "webpack-dev-server": "^3.3.1",
     "webpack-encoding-plugin": "^0.3.1",
-    "webpack-merge": "^4.2.1"
+    "webpack-merge": "^4.2.1",
+    "webpack-node-externals": "^1.7.2"
   }
 }
