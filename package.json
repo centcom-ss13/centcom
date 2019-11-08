@@ -11,8 +11,7 @@
     "build": "npx lerna run build",
     "deploy": "npx lerna run build:local",
     "npm:publish": "npm publish --access public",
-    "prepare": "npx run-s bootstrap build",
-    ""
+    "prepare": "npx run-s bootstrap build"
   },
   "babel": {
     "presets": [
