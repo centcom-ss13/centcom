@@ -7,10 +7,7 @@
       "message": "chore(release): publish",
       "registry": "https://npm.pkg.github.com"
     },
-    "bootstrap": {
-      "ignore": "component-*",
-      "npmClientArgs": ["--no-package-lock"]
-    }
+    "bootstrap": {}
   },
   "packages": ["packages/*"]
 }
