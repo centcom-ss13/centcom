@@ -146,8 +146,10 @@ class DonationLevelViewer extends React.Component {
 
   render() {
     return (
-      <div className="donationLevelViewerContainer">
-        {this.getContent()}
+      <div className="donationLevelViewerOuterContainer">
+        <div className="donationLevelViewerContainer">
+          {this.getContent()}
+        </div>
       </div>
     );
   }
