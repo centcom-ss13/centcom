@@ -11,6 +11,7 @@
     "build": "npx lerna run build",
     "build:local": "npx lerna run build:local",
     "start": "npx lerna run start --parallel --stream",
+    "start:docker": "npx lerna run start:docker --parallel --stream",
     "start:local": "npx lerna run start:local --parallel --stream",
     "setup": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build",
     "setup:local": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build:local"

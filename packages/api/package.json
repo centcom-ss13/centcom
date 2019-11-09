@@ -11,13 +11,7 @@
     "build": "webpack",
     "build:local": "webpack",
     "start": "node ./dist/bundle.js",
-    "start:local": "node ./dist/bundle.js",
-    "db": "run-s db:up",
-    "db:up": "npx db-migrate up",
-    "db:down": "npx db-migrate down",
-    "db:create": "npx db-migrate create",
-    "db:reset": "npx db-migrate reset",
-    "npm:publish": "npm publish --access public"
+    "start:local": "node ./dist/bundle.js"
   },
   "author": "",
   "license": "ISC",
