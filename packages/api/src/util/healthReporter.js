@@ -46,6 +46,7 @@ class HealthReporter {
               this.health.backend = STATUS.IMPAIRED;
             }
           } catch (error) {
+            console.log('Error pinging backend', error.message);
             this.health.backend = STATUS.DOWN;
           }
         }
@@ -62,6 +63,7 @@ class HealthReporter {
               this.health.frontend = STATUS.IMPAIRED;
             }
           } catch (error) {
+            console.log('Error pinging frontend', error.message);
             this.health.frontend = STATUS.DOWN;
           }
         }
