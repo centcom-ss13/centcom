@@ -1,11 +1,11 @@
 const express = require('express');
 const fs = require('fs');
 const https = require('https');
+const path = require('path');
 const config = require('config');
 const app = express();
 const port = config.get('frontEndPort');
 
-app.use(express.static(`${__dirname}../dist`));
 
 if(config.get('frontEndSSL')) {
   https.createServer({
@@ -16,3 +16,9 @@ if(config.get('frontEndSSL')) {
 } else {
   app.listen(port, () => console.log(`Front end http server listening on port ${port}!`));
 }
+
+app.use(express.static(path.join(__dirname+'/../dist'), {'index': ['index.html']}));
+
+app.get('*', (req,res) =>{
+  res.sendFile(path.join(__dirname+'/../dist/index.html'));
+});
