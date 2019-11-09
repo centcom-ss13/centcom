@@ -34,14 +34,14 @@ class ServerDetails extends React.Component {
               type="card"
               className="server-stats-menu"
             >
+              <Health
+                tab={<span><Icon type="medicine-box" />Health</span>}
+                key="health"
+              />
               <Info tab={<span><Icon type="info-circle" />Info</span>} key="info" />
               <LastRound
                 tab={<span><Icon type="arrow-left" />Last Round</span>}
                 key="lastRound"
-              />
-              <Health
-                tab={<span><Icon type="medicine-box" />Health</span>}
-                key="health"
               />
             </Tabs>
           </Card>

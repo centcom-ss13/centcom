@@ -13,7 +13,7 @@ class UserGroupsEditor extends React.Component {
   }
 
   componentDidMount() {
-    const chosenKeys = this.props.user.groups;
+    const chosenKeys = this.props.user.groups || [];
     this.setState({
       chosenKeys,
       availableKeys: this.getAvailableKeys(chosenKeys),
@@ -22,8 +22,6 @@ class UserGroupsEditor extends React.Component {
 
   onChange(availableKeys) {
     const chosenKeys = this.getChosenKeysFromAvailableKeys(availableKeys);
-    console.log('chosenKeys', chosenKeys);
-    console.log('availableKeys', availableKeys);
     this.setState({
       chosenKeys: chosenKeys,
       availableKeys: availableKeys,
@@ -32,7 +30,6 @@ class UserGroupsEditor extends React.Component {
   }
 
   handleSelectChange(sourceKeys, targetKeys) {
-    console.log(sourceKeys, targetKeys);
     this.setState({
       selectedKeys: [
         ...sourceKeys,

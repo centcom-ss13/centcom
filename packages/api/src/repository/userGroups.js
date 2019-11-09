@@ -37,8 +37,8 @@ async function getGroupsForUser(userId) {
   .field('user_group.id', 'id')
   .field('user_group.name', 'name')
   .field('user_group.description', 'description')
-  .from('user_group_member')
-  .left_join('user_group', null, 'user_group.id = user_group_member.group_id')
+  .from('user_group')
+  .left_join('user_group_member', null, 'user_group.id = user_group_member.group_id')
   .where('user_group_member.user_id = ?', userId);
 
   return await db.query(query);

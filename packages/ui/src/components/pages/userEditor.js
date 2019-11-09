@@ -66,8 +66,9 @@ class UsersEditor extends React.Component {
       return (<LoadingIndicator center/>);
     }
 
+    const permissions = object.permissions || [];
     const userPermissionItems = Object.values(this.props.permissions)
-    .filter(({ name }) => object.permissions.includes(name));
+    .filter(({ name }) => permissions.includes(name));
 
     return (
       <List
@@ -87,8 +88,10 @@ class UsersEditor extends React.Component {
       return (<LoadingIndicator center/>);
     }
 
+    const groups = object.groups || [];
+
     const userGroupItems = this.props.groups
-    .filter(({ id }) => object.groups.includes(id));
+    .filter(({ id }) => groups.includes(id));
 
     return (
       <List
@@ -108,20 +111,27 @@ class UsersEditor extends React.Component {
       return (<LoadingIndicator center/>);
     }
 
+    const permissions = object.permissions || [];
+    const groups = object.groups || [];
+
+    const defaultGrantedPermissions = Object.values(this.props.permissions)
+      .filter(({ granted }) => granted);
+
     const userPermissionItems = Object.values(this.props.permissions)
-    .filter(({ name }) => object.permissions.includes(name));
+    .filter(({ name }) => permissions.includes(name));
 
     const userGroupItems = this.props.groups
-    .filter(({ id }) => object.groups.includes(id));
+    .filter(({ id }) => groups.includes(id));
 
     const userGroupPermissionNames = unique(flatMap(this.props.groups
-    .filter(({ id }) => object.groups.includes(id))
+    .filter(({ id }) => groups.includes(id))
     .map(({ permissions }) => permissions)));
 
     const userGroupPermissions = Object.values(this.props.permissions)
     .filter(({ name }) => userGroupPermissionNames.includes(name));
 
     const combinedPermissionItems = unique(flatMap([
+      defaultGrantedPermissions,
       userGroupPermissions,
       userPermissionItems,
     ]));

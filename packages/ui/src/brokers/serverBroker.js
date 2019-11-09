@@ -42,7 +42,6 @@ class ServerBroker {
 
     await endpoint.update(body, params);
 
-    console.log(body);
     endpointDefinition.fields &&
       Object.entries(endpointDefinition.fields)
       .filter(([key, field]) => field.saveHandler && body[key])

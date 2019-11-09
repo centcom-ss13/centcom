@@ -13,7 +13,7 @@ class UserPermissionsEditor extends React.Component {
   }
 
   componentDidMount() {
-    const chosenKeys = this.props.user.permissions;
+    const chosenKeys = this.props.user.permissions || [];
     this.setState({
       chosenKeys,
       availableKeys: this.getAvailableKeys(chosenKeys),
@@ -30,7 +30,6 @@ class UserPermissionsEditor extends React.Component {
   }
 
   handleSelectChange(sourceKeys, targetKeys) {
-    console.log(sourceKeys, targetKeys);
     this.setState({
       selectedKeys: [
         ...sourceKeys,
@@ -42,7 +41,7 @@ class UserPermissionsEditor extends React.Component {
   getAvailableKeys(chosenKeys = this.state.chosenKeys) {
     return Object.values(this.props.permissions)
     .map(({ name }) => name)
-    .filter((name) => !this.props.user.permissions.includes(name));
+    .filter((name) => !chosenKeys.includes(name));
   }
 
   getChosenKeysFromAvailableKeys(availableKeys) {

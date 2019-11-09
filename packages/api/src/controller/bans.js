@@ -1,9 +1,13 @@
 import BanService from '../service/bans';
+import PermissionService from "../service/permissions";
+import PERMISSION from "../repository/permissions";
 
 const getBans = {
   method: 'GET',
   path: '/bans',
   handler: async function (request, h) {
+    await PermissionService.requiresPermission(request, PERMISSION.BAN_READ);
+
     return await BanService.getBans();
   },
   options: {
@@ -15,9 +19,11 @@ const editBan = {
   method: 'PUT',
   path: '/bans/{id}',
   handler: async function (request, h) {
+    await PermissionService.requiresPermission(request, PERMISSION.BAN_EDIT_ANY);
+
     const id = parseInt(request.params.id, 10);
 
-    return await BanService.editBan(id, request.payload);
+    return await BanService.editBan(id, request.payload.input, request.payload.sender_id);
   },
 };
 
@@ -25,6 +31,8 @@ const deleteBan = {
   method: 'DELETE',
   path: '/bans/{id}',
   handler: async function (request, h) {
+    await PermissionService.requiresPermission(request, PERMISSION.BAN_DELETE_ANY);
+
     return await BanService.deleteBan(request.params.id);
   },
 };
@@ -33,6 +41,8 @@ const createBan = {
   method: 'POST',
   path: '/bans',
   handler: async function (request, h) {
+    await PermissionService.requiresPermission(request, PERMISSION.BAN_CREATE);
+
     return await BanService.createBan(request.payload.input, request.payload.sender_id);
   },
 };

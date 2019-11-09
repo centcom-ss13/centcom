@@ -140,7 +140,6 @@ class JobsEditor extends React.Component {
   scrollToMenuItem(menuRef, menuItemId) {
     const menuItemRef = this.menuItemRefs[menuItemId];
     if (menuItemRef && menuItemRef.current && menuItemRef.current.scrollIntoView) {
-      console.log(menuItemRef.current);
       menuItemRef.current.scrollIntoView();
       // menuRef.current.scrollTo(menuItemRef.current.scrollTop);
     }

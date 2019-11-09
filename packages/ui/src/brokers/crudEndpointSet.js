@@ -47,7 +47,10 @@ export default class CrudEndpointSet {
   }
 
   async create(body, params = []) {
-    const transformedBody = await this.postTransform(body);
+    const transformedBody = {
+      ...body,
+      input: await this.postTransform(body.input)
+    };
 
     return await this.db.query(`${this.getBasePath('POST', params)}`, { body: JSON.stringify(transformedBody), method: 'POST' });
   }

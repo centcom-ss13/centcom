@@ -16,13 +16,17 @@ function setLoading(key, value) {
   };
 }
 
-function fetch(key) {
+function fetch(key, {
+  clear = true,
+} = {}) {
   return async (dispatch, getState) => {
     const { app } = getState();
     const { loading } = app;
     if(!loading[key]) {
       dispatch(setLoading(key, true));
-      dispatch(setKey(key, undefined));
+      if(clear) {
+        dispatch(setKey(key, undefined));
+      }
       try {
         const objects = await db.get(key);
         dispatch(setKey(key, objects));

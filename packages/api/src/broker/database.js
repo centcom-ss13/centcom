@@ -24,7 +24,7 @@ class DB {
   }
 
   async query(query) {
-    if (config.get('debug')) {
+    if (config.get('debug_verbose')) {
       console.log(`Executing query: "${query.toString()}"`);
     }
     try {

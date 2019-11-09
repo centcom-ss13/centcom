@@ -382,6 +382,11 @@ export default {
         displayOrder: 3,
       }
     }
+  },
+  health: {
+    path: '/health',
+    name: 'Health Check',
+    singularDisplayName: 'Health Check',
   }
 
 }

@@ -4,7 +4,7 @@ const http = require('http');
 const https = require('https');
 const path = require('path');
 const config = require('config');
-var httpsRedirect = require('express-https-redirect');
+const httpsRedirect = require('express-https-redirect');
 const main = express();
 const port = config.get('frontEndPort');
 

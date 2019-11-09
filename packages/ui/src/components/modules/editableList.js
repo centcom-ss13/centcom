@@ -291,7 +291,6 @@ class EditableList extends React.Component {
     if (nextProps.forceSelectedKeyGuid &&
       nextProps.forceSelectedKeyGuid !== this.props.forceSelectedKeyGuid) {
       this.setState({ selectedKey: nextProps.forceSelectedKey });
-      console.log('forcing selected key', nextProps.forceSelectedKey);
       if(this.props.scrollToMenuItem) {
         this.props.scrollToMenuItem(this.sideMenuRef, nextProps.forceSelectedKey);
       }
@@ -312,8 +311,9 @@ class EditableList extends React.Component {
   async edit() {
     this.setState({ loading: true });
     const newObject = {
-      ...this.state.input,
+      input: this.state.input,
       id: this.state.selectedKey,
+      sender_id: this.props.currentUser && this.props.currentUser.id,
     };
 
     try {

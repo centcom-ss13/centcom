@@ -26,6 +26,7 @@ export default {
   BAN_READ: {
     name: 'BAN_READ',
     description: 'Read Ban List',
+    granted: true,
   },
   BOOK_CREATE: {
     name: 'BOOK_CREATE',
@@ -42,6 +43,7 @@ export default {
   BOOK_READ: {
     name: 'BOOK_READ',
     description: 'Read Books',
+    granted: true,
   },
   CONFIG_EDIT: {
     name: 'CONFIG_EDIT',
@@ -50,6 +52,7 @@ export default {
   CONFIG_READ: {
     name: 'CONFIG_READ',
     description: 'Read Site Config',
+    granted: true,
   },
   DONATION_LEVELS_CREATE: {
     name: 'DONATION_LEVELS_CREATE',
@@ -66,6 +69,7 @@ export default {
   DONATION_LEVELS_READ: {
     name: 'DONATION_LEVELS_READ',
     description: 'Read Donation Levels',
+    granted: true,
   },
   GROUP_CREATE: {
     name: 'GROUP_CREATE',
@@ -82,6 +86,7 @@ export default {
   GROUP_READ: {
     name: 'GROUP_READ',
     description: 'Read Groups',
+    granted: true,
   },
   JOB_CREATE: {
     name: 'JOB_CREATE',
@@ -98,18 +103,21 @@ export default {
   JOB_READ: {
     name: 'JOB_READ',
     description: 'Read Jobs',
+    granted: true,
   },
   PERMISSIONS_READ: {
     name: 'PERMISSIONS_READ',
     description: 'Read Permissions',
+    granted: true,
   },
   THEME_EDIT: {
     name: 'THEME_EDIT',
-    description: 'Edit Site Default Theme',
+    description: 'Edit Site granted Theme',
   },
   THEME_VIEW: {
     name: 'THEME_VIEW',
-    description: 'View Site Default Themes',
+    description: 'View Site granted Themes',
+    granted: true,
   },
   USER_CREATE: {
     name: 'USER_CREATE',
@@ -134,6 +142,7 @@ export default {
   USER_READ_ANY: {
     name: 'USER_READ_ANY',
     description: 'Read Users',
+    granted: true,
   },
   USER_READ_OWN: {
     name: 'USER_READ_OWN',
@@ -154,5 +163,6 @@ export default {
   USER_THEME_READ: {
     name: 'USER_THEME_READ',
     description: 'Read Own User Theme Settings',
+    granted: true,
   },
 };

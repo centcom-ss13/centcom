@@ -22,8 +22,6 @@ class GroupPermissionsEditor extends React.Component {
 
   onChange(availableKeys) {
     const chosenKeys = this.getChosenKeysFromAvailableKeys(availableKeys);
-    console.log('chosenKeys', chosenKeys);
-    console.log('availableKeys', availableKeys);
     this.setState({
       chosenKeys: chosenKeys,
       availableKeys: availableKeys,
@@ -32,7 +30,6 @@ class GroupPermissionsEditor extends React.Component {
   }
 
   handleSelectChange(sourceKeys, targetKeys) {
-    console.log(sourceKeys, targetKeys);
     this.setState({
       selectedKeys: [
         ...sourceKeys,

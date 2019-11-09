@@ -4,6 +4,7 @@ module.exports = {
   databaseUsername: 'root',
   databasePassword: 'imapassword',
   debug: true,
+  debug_verbose: false,
   apiHost: 'localhost',
   apiPort: 3000,
   databaseDb: 'centcom',
