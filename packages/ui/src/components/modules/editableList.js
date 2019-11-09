@@ -324,7 +324,12 @@ class EditableList extends React.Component {
       this.setState({ loading: false, editing: false, deleting: false });
     } catch (e) {
       console.log(e);
-      message.error(`Error editing ${this.getEndpointDef().singularDisplayName}`);
+      message.error((
+        <React.Fragment>
+          <span>Error editing {this.getEndpointDef().singularDisplayName}</span>
+          <div>{e.message}</div>
+        </React.Fragment>
+      ));
       this.setState({ loading: false });
     }
   }
@@ -348,7 +353,12 @@ class EditableList extends React.Component {
       this.setState({ loading: false, creating: false });
     } catch (e) {
       console.log(e);
-      message.error(`Error creating ${this.getEndpointDef().singularDisplayName}`);
+      message.error((
+        <React.Fragment>
+          <span>Error creating {this.getEndpointDef().singularDisplayName}</span>
+          <div>{e.message}</div>
+        </React.Fragment>
+      ));
       this.setState({ loading: false });
     }
   }
@@ -386,7 +396,12 @@ class EditableList extends React.Component {
       this.setState({ loading: false, deleting: false, editing: false, selectedKey: undefined });
     } catch (e) {
       console.log(e);
-      message.error(`Error deleting ${this.getEndpointDef().singularDisplayName}.`);
+      message.error((
+        <React.Fragment>
+          <span>Error deleting {this.getEndpointDef().singularDisplayName}</span>
+          <div>{e.message}</div>
+        </React.Fragment>
+      ));
       this.setState({ loading: false, deleting: false, error: true });
     }
   }
