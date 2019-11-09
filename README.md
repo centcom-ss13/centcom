@@ -12,9 +12,9 @@ This repository uses [lerna](https://github.com/lerna/lerna) and [yarn](https://
  - If you have not already done so, aquire [npm](https://www.npmjs.com/) (version 8.15 or higher).
  - Clone this repo: `git clone git@github.com:centcom-ss13/centcom.git`
  - To start development, type `npm run setup:local`
- - To build and run the production environment, type: `npm run setup && npm run start`
- - To build locally: `npm run build:local`
  - To start development runtimes (after building): `npm run start:local`
+ - To re-build locally: `npm run build:local`
+ - To build and run the production environment, type: `npm run setup && npm run start`
  
 That's it!  There are more commands listed below, but these are enough to get you running.
 
