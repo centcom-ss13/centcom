@@ -5,13 +5,13 @@ const config = require('config');
 const app = express();
 const port = config.get('frontEndPort');
 
-app.use(express.static('dist'));
+app.use(express.static(`${__dirname}../dist`));
 
-if(config.get('apiSSL')) {
+if(config.get('frontEndSSL')) {
   https.createServer({
-    key: fs.readFileSync(config.get('apiSSLKeyFile')),
-    cert: fs.readFileSync(config.get('apiSSLCertFile')),
-  }, app).listen(port, () => console.log(`Front end server listening on port ${port}!`));
+    key: fs.readFileSync(config.get('apiSSLKeyFile'), 'utf8'),
+    cert: fs.readFileSync(config.get('apiSSLCertFile'), 'utf8'),
+  }, app).listen(port, () => console.log(`Front end https server listening on port ${port}!`));
 } else {
-  app.listen(port, () => console.log(`Front end server listening on port ${port}!`));
+  app.listen(port, () => console.log(`Front end http server listening on port ${port}!`));
 }
