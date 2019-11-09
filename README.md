@@ -1,8 +1,7 @@
 # @centcom/centcom
 
 Monorepo for the Centcom project
-## CentCom
-### *The SS13 Management Service*
+#### *CentCom: The SS13 Management Service*
 
 [Demo Site](http://centcom.ddmers.com) - [Github Organization](https://github.com/centcom-ss13) - [Service Homepage](https://centcom.services) (coming soon!)
 

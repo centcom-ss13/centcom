@@ -2,8 +2,7 @@
 
 The React front-end for CentCom
 
-## CentCom
-### *The SS13 Management Service*
+#### *CentCom: The SS13 Management Service*
 
 [Demo Site](http://centcom.ddmers.com) - [Github Organization](https://github.com/centcom-ss13) - [Service Homepage](https://centcom.services) (coming soon!)
 
