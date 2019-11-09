@@ -100,6 +100,31 @@ class PageSidebar extends React.Component {
     );
   }
 
+  getExternalLinks() {
+    return (
+      <Menu.ItemGroup title="External Links">
+        {this.props.communityConfig && this.props.communityConfig.github_url && <Menu.Item key="github">
+          <a href={this.props.communityConfig.github_url}>
+            <Icon type="github" />
+            <span>Github</span>
+          </a>
+        </Menu.Item>}
+        {this.props.communityConfig && this.props.communityConfig.forums_url && <Menu.Item key="forums">
+          <a href={this.props.communityConfig.forums_url}>
+            <Icon type="layout" />
+            <span>Forums</span>
+          </a>
+        </Menu.Item>}
+        {this.props.communityConfig && this.props.communityConfig.wiki_url && <Menu.Item key="wiki">
+          <a href={this.props.communityConfig.wiki_url}>
+            <Icon type="read" />
+            <span>Wiki</span>
+          </a>
+        </Menu.Item>}
+      </Menu.ItemGroup>
+    );
+  }
+
   render() {
     return (
       <Sider
@@ -130,24 +155,6 @@ class PageSidebar extends React.Component {
                 <span>Donate</span>
               </Link>
             </Menu.Item>
-            {this.props.communityConfig && this.props.communityConfig.github_url && <Menu.Item key="github">
-              <a href={this.props.communityConfig.github_url}>
-                <Icon type="github" />
-                <span>Github</span>
-              </a>
-            </Menu.Item>}
-            {this.props.communityConfig && this.props.communityConfig.forums_url && <Menu.Item key="forums">
-              <a href={this.props.communityConfig.forums_url}>
-                <Icon type="layout" />
-                <span>Forums</span>
-              </a>
-            </Menu.Item>}
-            {this.props.communityConfig && this.props.communityConfig.wiki_url && <Menu.Item key="wiki">
-              <a href={this.props.communityConfig.wiki_url}>
-                <Icon type="read" />
-                <span>Wiki</span>
-              </a>
-            </Menu.Item>}
             <Menu.Item key={`/panel/book`}>
               <Link to={`/panel/book`}>
                 <Icon type="book" />
@@ -161,6 +168,7 @@ class PageSidebar extends React.Component {
               </Link>
             </Menu.Item>
             {this.getAdminSubmenu()}
+            {this.getExternalLinks()}
           </Menu>
         </Spin>
       </Sider>
