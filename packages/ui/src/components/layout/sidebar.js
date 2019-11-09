@@ -101,28 +101,38 @@ class PageSidebar extends React.Component {
   }
 
   getExternalLinks() {
-    return (
-      <Menu.ItemGroup title="External Links">
-        {this.props.communityConfig && this.props.communityConfig.github_url && <Menu.Item key="github">
-          <a href={this.props.communityConfig.github_url}>
-            <Icon type="github" />
-            <span>Github</span>
-          </a>
-        </Menu.Item>}
-        {this.props.communityConfig && this.props.communityConfig.forums_url && <Menu.Item key="forums">
-          <a href={this.props.communityConfig.forums_url}>
-            <Icon type="layout" />
-            <span>Forums</span>
-          </a>
-        </Menu.Item>}
-        {this.props.communityConfig && this.props.communityConfig.wiki_url && <Menu.Item key="wiki">
-          <a href={this.props.communityConfig.wiki_url}>
-            <Icon type="read" />
-            <span>Wiki</span>
-          </a>
-        </Menu.Item>}
-      </Menu.ItemGroup>
+    const { communityConfig } = this.props;
+    const hasExternalLinks = communityConfig && (
+      communityConfig.github_url ||
+      communityConfig.forums_url ||
+      communityConfig.wiki_url
     );
+    if(hasExternalLinks) {
+      return (
+        <Menu.ItemGroup title="External Links">
+          {this.props.communityConfig && this.props.communityConfig.github_url && <Menu.Item key="github">
+            <a href={this.props.communityConfig.github_url}>
+              <Icon type="github"/>
+              <span>Github</span>
+            </a>
+          </Menu.Item>}
+          {this.props.communityConfig && this.props.communityConfig.forums_url && <Menu.Item key="forums">
+            <a href={this.props.communityConfig.forums_url}>
+              <Icon type="layout"/>
+              <span>Forums</span>
+            </a>
+          </Menu.Item>}
+          {this.props.communityConfig && this.props.communityConfig.wiki_url && <Menu.Item key="wiki">
+            <a href={this.props.communityConfig.wiki_url}>
+              <Icon type="read"/>
+              <span>Wiki</span>
+            </a>
+          </Menu.Item>}
+        </Menu.ItemGroup>
+      );
+    }
+
+    return undefined;
   }
 
   render() {
