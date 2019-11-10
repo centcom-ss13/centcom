@@ -42,9 +42,12 @@ class HealthReporter {
             const options = {
               url: `http${ssl ? 's' : ''}://${config.get('apiHost')}:${config.get('apiPort')}`,
               ...(ssl && {
-                key: fs.readFileSync(config.get('apiSSLKeyFile')),
-                cert: fs.readFileSync(config.get('apiSSLCertFile')),
-                passphrase: config.get('apiSSLKeyPassphrase'),
+                agentOptions: {
+                  key: fs.readFileSync(config.get('apiSSLKeyFile')),
+                  cert: fs.readFileSync(config.get('apiSSLCertFile')),
+                  passphrase: config.get('apiSSLKeyPassphrase'),
+                  securityOptions: 'SSL_OP_NO_SSLv3'
+                },
               }),
             };
             const response = await promisify(request)(options);
