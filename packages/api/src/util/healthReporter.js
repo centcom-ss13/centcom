@@ -1,7 +1,8 @@
 import { promisify, callbackify } from 'util';
 import request from 'request';
 import config from 'config';
-import {getDB} from "../broker/database";
+import { getDB } from "../broker/database";
+import fs from 'fs';
 
 const db = getDB();
 
@@ -9,7 +10,7 @@ const STATUS = {
   UP: 'UP',
   DOWN: 'DOWN',
   UNKNOWN: 'UNKNOWN',
-  IMPAIRED:  'IMPAIRED',
+  IMPAIRED: 'IMPAIRED',
 };
 
 let instance = null;
@@ -24,7 +25,7 @@ class HealthReporter {
 
     this.collectors = {
       mysql: {
-        poll: async function() {
+        poll: async function () {
           try {
             await db.ping();
             this.health.mysql = STATUS.UP;
@@ -35,12 +36,20 @@ class HealthReporter {
         },
       },
       backend: {
-        poll: async function() {
+        poll: async function () {
           try {
-            const protocol = config.get('apiSSL') ? 'https' : 'http';
-            const response = await promisify(request)(`${protocol}://${config.get('apiHost')}:${config.get('apiPort')}`);
+            const ssl = config.get('apiSSL');
+            const options = {
+              url: `http${ssl ? 's' : ''}://${config.get('apiHost')}:${config.get('apiPort')}`,
+              ...(ssl && {
+                key: fs.readFileSync(config.get('apiSSLKeyFile')),
+                cert: fs.readFileSync(config.get('apiSSLCertFile')),
+                passphrase: config.get('apiSSLKeyPassphrase'),
+              }),
+            };
+            const response = await promisify(request)(options);
 
-            if(response.statusCode && response.statusCode === 200) {
+            if (response.statusCode && response.statusCode === 200) {
               this.health.backend = STATUS.UP;
             } else {
               this.health.backend = STATUS.IMPAIRED;
@@ -52,12 +61,20 @@ class HealthReporter {
         }
       },
       frontend: {
-        poll: async function() {
+        poll: async function () {
           try {
-            const protocol = config.get('frontEndSSL') ? 'https' : 'http';
-            const response = await promisify(request)(`${protocol}://${config.get('frontEndUrl')}:${config.get('frontEndPort')}`);
+            const ssl = config.get('apiSSL');
+            const options = {
+              url: `http${ssl ? 's' : ''}://${config.get('frontEndUrl')}:${config.get('frontEndPort')}`,
+              ...(ssl && {
+                key: fs.readFileSync(config.get('apiSSLKeyFile')),
+                cert: fs.readFileSync(config.get('apiSSLCertFile')),
+                passphrase: config.get('apiSSLKeyPassphrase'),
+              }),
+            };
+            const response = await promisify(request)(options);
 
-            if(response.statusCode && response.statusCode === 200) {
+            if (response.statusCode && response.statusCode === 200) {
               this.health.frontend = STATUS.UP;
             } else {
               this.health.frontend = STATUS.IMPAIRED;
@@ -80,24 +97,29 @@ class HealthReporter {
   }
 
   async collect() {
-    await Promise.all(
-      Object.entries(this.collectors)
-      .map(([key, { poll }]) => poll.call(this)));
+    await
+      Promise.all(
+        Object.entries(this.collectors)
+          .map(([key, { poll }]) => poll.call(this)));
   }
 }
 
-async function getHealthReporter() {
-  if(instance) {
+async function
+
+getHealthReporter() {
+  if (instance) {
     return instance;
   } else {
     instance = new HealthReporter();
 
-    await instance.start();
+    await
+      instance.start();
 
     return instance;
   }
 }
 
 export {
-  getHealthReporter,
+  getHealthReporter
+  ,
 }
