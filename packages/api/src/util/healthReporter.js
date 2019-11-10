@@ -46,7 +46,6 @@ class HealthReporter {
                   key: fs.readFileSync(config.get('apiSSLKeyFile')),
                   cert: fs.readFileSync(config.get('apiSSLCertFile')),
                   passphrase: config.get('apiSSLKeyPassphrase'),
-                  securityOptions: 'SSL_OP_NO_SSLv3'
                 },
               }),
             };
