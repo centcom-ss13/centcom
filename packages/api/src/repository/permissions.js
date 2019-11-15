@@ -112,11 +112,11 @@ export default {
   },
   THEME_EDIT: {
     name: 'THEME_EDIT',
-    description: 'Edit Site granted Theme',
+    description: 'Edit Site Default Theme',
   },
   THEME_VIEW: {
     name: 'THEME_VIEW',
-    description: 'View Site granted Themes',
+    description: 'View Site Default Themes',
     granted: true,
   },
   USER_CREATE: {
@@ -142,7 +142,6 @@ export default {
   USER_READ_ANY: {
     name: 'USER_READ_ANY',
     description: 'Read Users',
-    granted: true,
   },
   USER_READ_OWN: {
     name: 'USER_READ_OWN',
