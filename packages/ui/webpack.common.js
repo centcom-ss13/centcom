@@ -86,7 +86,10 @@ module.exports = {
     modules: [
       path.resolve(__dirname, 'node_modules'),
       path.resolve(__dirname, './src'),
-    ]
+    ],
+    alias: {
+      "request$": "xhr",
+    }
   },
   output: {
     path: __dirname + '/dist',
