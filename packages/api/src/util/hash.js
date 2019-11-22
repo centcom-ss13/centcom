@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from 'bcryptjs';
 import { promisify } from 'util';
 
 const hash = promisify(bcrypt.hash);

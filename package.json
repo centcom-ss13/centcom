@@ -5,16 +5,22 @@
   "main": "src/index.js",
   "scripts": {
     "globals": "npm i lerna yarn npm-run-all -g",
+    "globals:prod": "npm i lerna yarn npm-run-all -g",
     "prepRepo": "yarn install",
+    "prepRepo:prod": "yarn install --prod",
     "bootstrap": "npx lerna exec --concurrency 1 -- yarn install",
+    "bootstrap:prod": "npx lerna exec --concurrency 1 -- yarn install --prod",
+    "bootstrap:db": "npx lerna run boo",
     "test": "npx lerna run test",
     "build": "npx lerna run build",
-    "build:local": "npx lerna run build:local",
+    "build:prod": "npx lerna run build:prod",
     "start": "npx lerna run start --parallel --stream",
     "start:docker": "npx lerna run start:docker --parallel --stream",
-    "start:local": "npx lerna run start:local --parallel --stream",
+    "start:prod": "npx lerna run start:prod --parallel --stream",
     "setup": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build",
-    "setup:local": "npx -p \"npm-run-all\" run-s globals prepRepo bootstrap build:local"
+    "setup:prod": "npx -p \"npm-run-all\" run-s globals:prod prepRepo:prod bootstrap:prod build:prod",
+    "setup:db": "npx lerna run setup:db --stream",
+    "db:up": "npx lerna run db:up --stream"
   },
   "author": "",
   "license": "ISC",
@@ -24,5 +30,8 @@
     "npm-run-all": "^4.1.5",
     "shelljs": "^0.8.3",
     "yarn": "^1.19.1"
+  },
+  "engines" : {
+    "node" : ">=0.10.3 <0.12"
   }
 }

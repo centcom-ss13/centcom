@@ -56,7 +56,7 @@ async function doesUserHavePermission(user_id, permission) {
   return derivedPermissions.some(checkPermission => checkPermission === permission.name);
 }
 
-async function doesUserHavePermissions(user_id, permissions) {
+async function doesUserHaveAllPermissions(user_id, permissions) {
   if (permissions.every(permission => isDefaultPermission(permission))) {
     return true;
   } else if (user_id === undefined || user_id === null) {
@@ -67,29 +67,72 @@ async function doesUserHavePermissions(user_id, permissions) {
   return permissions.map(({ name }) => name).every(checkPermission => derivedPermissions.includes(checkPermission));
 }
 
+async function doesUserHaveAnyPermission(user_id, permissions) {
+  if (permissions.some(permission => isDefaultPermission(permission))) {
+    return true;
+  } else if (user_id === undefined || user_id === null) {
+    return false;
+  }
+  const derivedPermissions = await getDerivedUserPermissions(user_id);
+
+  return permissions.map(({ name }) => name).some(checkPermission => derivedPermissions.includes(checkPermission));
+}
+
+async function doesRequestHavePermission(request, permission) {
+  const userId = await getUserId(request);
+
+  return doesUserHavePermission(userId, permission);
+}
+
+async function doesRequestHaveAllPermissions(request, permissions) {
+  const userId = await getUserId(request);
+
+  return doesUserHaveAllPermissions(userId, permissions);
+}
+
+async function doesRequestHaveAnyPermission(request, permissions) {
+  const userId = await getUserId(request);
+
+  return doesUserHaveAnyPermission(userId, permissions);
+}
+
 async function requiresPermission(request, permission) {
   const userId = await getUserId(request);
   if (await doesUserHavePermission(userId, permission)) {
     return true;
   } else {
-    throw Boom.unauthorized(`User does not have permission: ${permission.name}`)
+    throw Boom.forbidden(`User does not have permission: ${permission.name}`)
   }
 }
 
-async function requiresPermissions(request, permissions) {
+async function requiresAllPermissions(request, permissions) {
   const userId = await getUserId(request);
-  if (await doesUserHavePermissions(userId, permissions)) {
+  if (await doesUserHaveAllPermissions(userId, permissions)) {
     return true;
   } else {
-    throw Boom.unauthorized(`User does not have permissions: ${JSON.stringify(permissions.map(({ name }) => name))}`)
+    throw Boom.unauthorized()
+  }
+}
+
+async function requiresAnyPermission(request, permissions) {
+  const userId = await getUserId(request);
+  if (await doesUserHaveAnyPermission(userId, permissions)) {
+    return true;
+  } else {
+    throw Boom.unauthorized(`User does not have any permission: ${JSON.stringify(permissions.map(({ name }) => name))}`)
   }
 }
 
 export default {
   getDerivedUserPermissions,
   doesUserHavePermission,
-  doesUserHavePermissions,
+  doesUserHaveAllPermissions,
+  doesUserHaveAnyPermission,
   requiresPermission,
-  requiresPermissions,
+  requiresAllPermissions,
+  requiresAnyPermission,
   getPermissions,
+  doesRequestHavePermission,
+  doesRequestHaveAllPermissions,
+  doesRequestHaveAnyPermission,
 };

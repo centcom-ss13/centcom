@@ -5,9 +5,9 @@
   "main": "src/index.js",
   "scripts": {
     "test": "npx mocha",
-    "start": "node scripts/startProd",
-    "start:local": "webpack-dev-server --config ./webpack.dev.js",
-    "build": "webpack --config ./webpack.prod.js",
+    "start": "webpack-dev-server --config ./webpack.dev.js",
+    "start:prod": "node scripts/startProd",
+    "build:prod": "webpack --config ./webpack.prod.js",
     "npm:publish": "npm publish --access public"
   },
   "babel": {

@@ -1,4 +1,4 @@
-import Hapi from 'hapi';
+import Hapi from '@hapi/hapi';
 import config from 'config';
 import fs from 'fs';
 import * as controllers from './controller';
@@ -12,7 +12,9 @@ function registerRoute(server, route) {
 }
 
 function addControllers(server) {
-  Object.values(controllers).forEach(controller => controller.forEach(route => registerRoute(server, route)));
+  Object.values(controllers)
+    .forEach(controller => controller
+      .forEach(route => registerRoute(server, route)));
 }
 
 function isDefaultPort(ssl, port) {

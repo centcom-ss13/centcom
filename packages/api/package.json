@@ -9,20 +9,21 @@
   "scripts": {
     "test": "npx mocha --recursive",
     "build": "webpack",
-    "build:local": "webpack",
+    "build:prod": "webpack",
     "start": "node ./dist/bundle.js",
-    "start:local": "node ./dist/bundle.js"
+    "start:prod": "node ./dist/bundle.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@babel/runtime": "^7.4.4",
-    "@hapi/boom": "^7.4.2",
+    "@hapi/boom": "^8.0.1",
     "@hapi/cookie": "^10.1.0",
-    "bcrypt": "^3.0.6",
+    "@hapi/hapi": "^18.4.0",
+    "bcryptjs": "^2.4.3",
     "config": "^3.1.0",
     "generate-password": "^1.4.1",
-    "hapi": "^18.1.0",
+    "http-status-codes": "^1.4.0",
     "localstorage-memory": "^1.0.3",
     "mysql": "^2.17.1",
     "node-rsa": "^1.0.5",
@@ -30,6 +31,7 @@
     "require-dir": "^1.2.0",
     "sqlstring": "^2.3.1",
     "squel": "^5.12.2",
+    "typescript": "^3.7.2",
     "validator": "^10.11.0"
   },
   "devDependencies": {
