@@ -64,7 +64,10 @@ async function doesUserHaveAllPermissions(user_id, permissions) {
   }
   const derivedPermissions = await getDerivedUserPermissions(user_id);
 
-  return permissions.map(({ name }) => name).every(checkPermission => derivedPermissions.includes(checkPermission));
+  return permissions
+    .map(({ name }) => name)
+    .every(checkPermission =>
+      derivedPermissions.includes(checkPermission));
 }
 
 async function doesUserHaveAnyPermission(user_id, permissions) {
@@ -75,7 +78,10 @@ async function doesUserHaveAnyPermission(user_id, permissions) {
   }
   const derivedPermissions = await getDerivedUserPermissions(user_id);
 
-  return permissions.map(({ name }) => name).some(checkPermission => derivedPermissions.includes(checkPermission));
+  return permissions
+    .map(({ name }) => name)
+    .some(checkPermission =>
+      derivedPermissions.includes(checkPermission));
 }
 
 async function doesRequestHavePermission(request, permission) {

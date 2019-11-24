@@ -3,6 +3,7 @@ import UserService from "../service/users";
 import RsaTokens from '../util/rsaTokens';
 import { compareHash } from "../util/hash";
 import { stripKeysFromObject } from "../util/queryUtils";
+import PermissionService from '../service/permissions';
 
 const login = {
   method: 'POST',
@@ -135,7 +136,12 @@ const currentUser = {
           return Boom.unauthorized('Invalid credentials');
         }
 
-        const prunedUser = stripKeysFromObject(user, ['password']);
+        const hydratedUser = {
+          ...user,
+          combinedPermissions: await PermissionService.getDerivedUserPermissions(user.id),
+        };
+
+        const prunedUser = stripKeysFromObject(hydratedUser, ['password']);
 
         return prunedUser;
       } catch(e) {

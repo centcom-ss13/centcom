@@ -49,7 +49,7 @@ const editUser = {
     const id = parseInt(request.params.id, 10);
 
     if(requestingUserId === id) {
-      await PermissionService.requiresPermission(request, PERMISSION.USER_EDIT_OWN);
+      await PermissionService.requiresAnyPermission(request, [PERMISSION.USER_EDIT_ANY, PERMISSION.USER_EDIT_OWN]);
     } else {
       await PermissionService.requiresPermission(request, PERMISSION.USER_EDIT_ANY);
     }
@@ -91,7 +91,6 @@ const createUser = {
     } = input;
 
     await PermissionService.requiresAllPermissions(request, permissions);
-    await PermissionService.requiresAllGroups(request, groups);
 
     const decryptedUser = await decryptUserSecrets(request.payload.input, request.payload.sender_id);
 

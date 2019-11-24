@@ -9,7 +9,10 @@ const {
   Sider,
 } = Layout;
 
-const SubMenu = Menu.SubMenu;
+const {
+  SubMenu,
+  ItemGroup,
+} = Menu;
 
 const style = {
   color: '#EEE',
@@ -39,64 +42,95 @@ class PageSidebar extends React.Component {
     return this.props.communityConfig === undefined || this.props.loadingCurrentUser;
   }
 
+  userHasPermission(permission) {
+    if(!this.props.currentUser) {
+      return false;
+    }
+
+    const { combinedPermissions = [] } = this.props.currentUser;
+
+    return combinedPermissions.includes(permission);
+  }
+
+  userHasAnyPermission(permissions) {
+    if(!this.props.currentUser) {
+      return false;
+    }
+
+    const { combinedPermissions = [] } = this.props.currentUser;
+
+    return permissions.some(permission => combinedPermissions.includes(permission));
+  }
+
+  userHasAllPermissions(permissions) {
+    if(!this.props.currentUser) {
+      return false;
+    }
+
+    const { combinedPermissions = [] } = this.props.currentUser;
+
+    return permissions.every(combinedPermissions.includes);
+  }
+
   getAdminSubmenu() {
     if(!this.props.currentUser) {
       return null;
     }
 
     return (
-      <SubMenu
+      <ItemGroup
         key="admin_menu"
-        title={<span><Icon type="pie-chart" /><span>Admin</span></span>}
+        title={<span className="menu-item-group-title">Admin</span>}
       >
-        <Menu.Item key={`/panel/admin`}>
+        {this.userHasPermission('ADMIN_PANEL') && <Menu.Item key={`/panel/admin`}>
           <Link to={`/panel/admin`}>
             <Icon type="dashboard" />
             <span>Dashboard</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/donationLevels`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['DONATION_LEVELS_CREATE', 'DONATION_LEVELS_DELETE', 'DONATION_LEVELS_EDIT']) && <Menu.Item key={`/panel/admin/donationLevels`}>
           <Link to={`/panel/admin/donationLevels`}>
             <Icon type="heart" />
             <span>Donation Tier Editor</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/book`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['BOOK_CREATE', 'BOOK_DELETE', 'BOOK_EDIT']) && <Menu.Item key={`/panel/admin/book`}>
           <Link to={`/panel/admin/book`}>
             <Icon type="book" />
             <span>Book Editor</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/bans`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['BAN_CREATE', 'BAN_DELETE_ANY', 'BAN_DELETE_OWN', 'BAN_EDIT_ANY', 'BAN_EDIT_OWN']) && <Menu.Item key={`/panel/admin/bans`}>
           <Link to={`/panel/admin/bans`}>
             <Icon type="heat-map" />
             <span>Ban Manager</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/jobs`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['JOB_CREATE', 'JOB_DELETE', 'JOB_EDIT']) && <Menu.Item key={`/panel/admin/jobs`}>
           <Link to={`/panel/admin/jobs`}>
             <Icon type="tags" />
             <span>Job Editor</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/groups`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['GROUP_CREATE', 'GROUP_DELETE', 'GROUP_EDIT']) && <Menu.Item key={`/panel/admin/groups`}>
           <Link to={`/panel/admin/groups`}>
             <Icon type="usergroup-add" />
             <span>User Groups</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/users`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['USER_CREATE', 'USER_DELETE_ANY', 'USER_EDIT_ANY', 'USER_READ_ANY']) && <Menu.Item key={`/panel/admin/users`}>
           <Link to={`/panel/admin/users`}>
             <Icon type="user" />
             <span>User Manager</span>
           </Link>
-        </Menu.Item>
-        <Menu.Item key={`/panel/admin/auditLogs`}>
+        </Menu.Item>}
+        {this.userHasAnyPermission(['AUDIT_LOGS']) && <Menu.Item key={`/panel/admin/auditLogs`}>
           <Link to={`/panel/admin/auditLogs`}>
+            <Icon type="book" />
             <span>Audit Logs</span>
           </Link>
-        </Menu.Item>
-      </SubMenu>
+        </Menu.Item>}
+      </ItemGroup>
     );
   }
 
@@ -109,7 +143,9 @@ class PageSidebar extends React.Component {
     );
     if(hasExternalLinks) {
       return (
-        <Menu.ItemGroup title="External Links">
+        <Menu.ItemGroup
+          title={<span className="menu-item-group-title">External Links</span>}
+        >
           {this.props.communityConfig && this.props.communityConfig.github_url && <Menu.Item key="github">
             <a href={this.props.communityConfig.github_url}>
               <Icon type="github"/>

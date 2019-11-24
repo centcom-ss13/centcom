@@ -1,6 +1,8 @@
 import GroupRepository from '../repository/userGroups';
 import GroupPermissionRepository from '../repository/userGroupPermissions';
 import {getDB} from "../broker/database";
+import { getUserId } from "../util/request";
+import Boom from "@hapi/boom";
 
 const db = getDB();
 
@@ -62,7 +64,7 @@ async function editGroup(id, { name, description, permissions = [] }) {
       ...permissionRemoveFutures,
     ]);
 
-    return await results;
+    return results;
   });
 }
 
@@ -80,8 +82,80 @@ async function createGroup({ name, description, permissions = [] }) {
       ...permissionAddFutures,
     ]);
 
-    return await results;
+    return results;
   });
+}
+
+async function doesUserHaveGroup(user_id, group) {
+  if (user_id === undefined || user_id === null) {
+    return false;
+  }
+  const userGroups = await getGroupsForUser(user_id);
+
+  return userGroups.some(checkGroup => checkGroup === group.name);
+}
+
+async function doesUserHaveAllGroups(user_id, groups) {
+  if (user_id === undefined || user_id === null) {
+    return false;
+  }
+  const userGroups = await getGroupsForUser(user_id);
+
+  return groups.map(({ name }) => name).every(checkGroup => userGroups.includes(checkGroup));
+}
+
+async function doesUserHaveAnyGroup(user_id, groups) {
+  if (user_id === undefined || user_id === null) {
+    return false;
+  }
+  const userGroups = await getGroupsForUser(user_id);
+
+  return groups.map(({ name }) => name).some(checkGroup => userGroups.includes(checkGroup));
+}
+
+async function doesRequestHaveGroup(request, group) {
+  const userId = await getUserId(request);
+
+  return doesUserHaveGroup(userId, group);
+}
+
+async function doesRequestHaveAllGroups(request, groups) {
+  const userId = await getUserId(request);
+
+  return doesUserHaveAllGroups(userId, groups);
+}
+
+async function doesRequestHaveAnyGroup(request, groups) {
+  const userId = await getUserId(request);
+
+  return doesUserHaveAnyGroup(userId, groups);
+}
+
+async function requiresGroup(request, group) {
+  const userId = await getUserId(request);
+  if (await doesUserHaveGroup(userId, group)) {
+    return true;
+  } else {
+    throw Boom.forbidden(`User does not have group: ${group.name}`)
+  }
+}
+
+async function requiresAllGroups(request, groups) {
+  const userId = await getUserId(request);
+  if (await doesUserHaveAllGroups(userId, groups)) {
+    return true;
+  } else {
+    throw Boom.unauthorized()
+  }
+}
+
+async function requiresAnyGroup(request, groups) {
+  const userId = await getUserId(request);
+  if (await doesUserHaveAnyGroup(userId, groups)) {
+    return true;
+  } else {
+    throw Boom.unauthorized(`User does not have any group: ${JSON.stringify(groups.map(({ name }) => name))}`)
+  }
 }
 
 export default {
@@ -91,4 +165,10 @@ export default {
   deleteGroup,
   createGroup,
   getGroupsForUser,
+  doesRequestHaveGroup,
+  doesRequestHaveAllGroups,
+  doesRequestHaveAnyGroup,
+  requiresGroup,
+  requiresAllGroups,
+  requiresAnyGroup,
 }

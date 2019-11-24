@@ -139,6 +139,14 @@ export default {
     name: 'USER_EDIT_OWN',
     description: 'Edit Own User',
   },
+  USER_PERMISSIONS_EDIT: {
+    name: 'USER_PERMISSIONS_EDIT',
+    description: 'Edit Permissions of User',
+  },
+  USER_GROUPS_EDIT: {
+    name: 'USER_GROUPS_EDIT',
+    description: 'Edit Groups of User',
+  },
   USER_READ_ANY: {
     name: 'USER_READ_ANY',
     description: 'Read Users',
@@ -163,5 +171,9 @@ export default {
     name: 'USER_THEME_READ',
     description: 'Read Own User Theme Settings',
     granted: true,
+  },
+  ADMIN_PANEL: {
+    name: 'ADMIN_PANEL',
+    description: 'Access Admin Panel Page',
   },
 };
