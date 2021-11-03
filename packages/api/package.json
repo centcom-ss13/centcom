@@ -32,7 +32,7 @@
     "sqlstring": "^2.3.1",
     "squel": "^5.12.2",
     "typescript": "^3.7.2",
-    "validator": "^10.11.0",
+    "validator": "^13.7.0",
     "@babel/core": "^7.4.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.4.4",
     "@babel/plugin-transform-runtime": "^7.4.4",
